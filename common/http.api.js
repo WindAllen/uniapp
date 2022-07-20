@@ -13,21 +13,30 @@ const install = (Vue, vm) => {
 	// 首页
 	vm.$u.api.index = (params = {}) => vm.$u.get('/api/index',params);
 	
-	//登录相关的API属性
-	vm.$u.api.authLogin = params => vm.$u.post('/api/auth/login',params)
-	//注册相关的API属性
-	vm.$u.api.authRegister = params => vm.$u.post('/api/auth/register',params)
-	//用户相关的
-	vm.$u.api.userInfo = () => vm.$u.get('/api/user')
+	//商品
+	vm.$u.api.getGoodsDetail = id => vm.$u.get(`/api/goods/${id}`);//商品详情
+	vm.$u.api.isCollect = id => vm.$u.post(`/api/collects/goods/${id}`);//商品收藏或取消
+	vm.$u.api.getCollect = (page=1) => vm.$u.get('/api/collects',{page});//获取收藏商品
+	// 个人中心
+	vm.$u.api.userInfo = () => vm.$u.get('/api/user')//获取用户信息
+	vm.$u.api.userInfoUpdate = params => vm.$u.put('/api/user',params)//更新用户信息
+	
+	// 认证相关的
+	vm.$u.api.authLogin = params => vm.$u.post('/api/auth/login',params)//登录相关的API属性
+	vm.$u.api.authRegister = params => vm.$u.post('/api/auth/register',params)//注册相关的API属性
 	vm.$u.api.logout = () => vm.$u.post('/api/auth/logout')//退出登录
 	vm.$u.api.authOssToken = () => vm.$u.get('/api/auth/oss/token')//获取OSStoken
-	// 将各个定义的接口名称，统一放进对象挂载到vm.$u.api(因为vm就是this，也即this.$u.api)下
-	// vm.$u.api = {
-	// 	index,
-	// 	authLogin
-	// };
-	vm.$u.api.userInfoUpdate = params => vm.$u.put('/api/user',params)
-	vm.$u.api.userAvatar = params => vm.$u.post('/api/user/avatar',params)
+	vm.$u.api.userAvatar = params => vm.$u.post('/api/user/avatar',params)//更改用户头像
+	
+	//购物车相关
+	vm.$u.api.addCart = params => vm.$u.post('/api/carts',params)//商品加入购物车
+	vm.$u.api.cartGoods = () => vm.$u.get(`/api/carts?include=goods`);//购物车列表
+	
+	// //陪审团
+	// vm.$u.api.clicky = params =>this.$u.api.get('params')//按钮是诈骗
+	// vm.$u.api.clicky = params =>this.$u.api.get('params')//按钮不是诈骗
+	// vm.$u.api.getlike = params =>this.$u.api.get('params')//点赞数
+	// vm.$u.api.setReply = params =>this.$u.api.get('params')	 //存储评论	
 }
 
 export default {

@@ -20,11 +20,11 @@
 
 <script>
 	let _this = {}
-	export default {
+	export default { 
 		name:"oss-upload",
 		data() {
 			return {
-				action: '',
+				action: '',                           
 				formData: {},
 				upFileName: ''
 			};

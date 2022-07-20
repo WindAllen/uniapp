@@ -24,9 +24,9 @@
 		
 		<view class="u-m-t-20">
 			<u-cell-group>
-				<u-cell-item icon="rmb-circle" title="订单"></u-cell-item>
-				<u-cell-item icon="star" title="商品收藏"></u-cell-item>
-				<u-cell-item icon="map" title="收货地址"></u-cell-item>
+				<!-- <u-cell-item icon="rmb-circle" title="订单"></u-cell-item> -->
+				<!-- <u-cell-item icon="star" title="商品收藏" ></u-cell-item> -->
+				<!-- <u-cell-item icon="map" title="收货地址"></u-cell-item> -->
 			</u-cell-group>
 		</view>
 		
@@ -35,6 +35,7 @@
 				<u-cell-item icon="reload" @click = "logout" title="退出登录"></u-cell-item>
 			</u-cell-group>
 		</view>
+		<u-tabbar :list="tabbar" :mid-button="true"></u-tabbar>
 	</view>
 </template>
 
@@ -43,13 +44,45 @@
 		data() {
 			return {
 				pic:'https://uviewui.com/common/logo.png',
-				show:true
+				show:true,
+				tabbar: '',
 			}
 		},
 		onLoad() {
+			this.tabbar = [{
+					iconPath: "home",
+					selectedIconPath: "home-fill",
+					text: '水驿',
+					count: 2,
+					isDot: true,
+					pagePath: "/pages/index/index"
+				},
+				{
+					iconPath: "/static/icon/jinzhongzhao.png",
+					selectedIconPath: "/static/icon/jinzhongzhao2.png",
+					text: '金钟罩',
+					midButton: true,
+					customIcon: false,
+					pagePath: "/pages/goods/goods"
+				},
+				{
+					iconPath: "account",
+					selectedIconPath: "account-fill",
+					text: '我的',
+					count: 23,
+					isDot: false,
+					customIcon: false,
+					pagePath: "/pages/center/index"
+				},
+			]
 			if(!this.$u.utils.isLogin()) return 
 		},
 		methods: {
+			showCollect(){
+				this.$u.route({
+					url:'pages/center/collectGoods'
+				})
+			},
 			toBaseInfo(){
 				this.$u.route({
 					url:'pages/center/baseInfo'
